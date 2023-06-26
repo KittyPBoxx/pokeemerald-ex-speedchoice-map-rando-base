@@ -2463,38 +2463,16 @@ u8 DoBattlerEndTurnEffects(void)
                 for (gBattlerAttacker = 0; gBattlerAttacker < gBattlersCount; gBattlerAttacker++)
                 {
                     if ((gBattleMons[gBattlerAttacker].status1 & STATUS1_SLEEP)
-                     && gBattleMons[gBattlerAttacker].ability != ABILITY_SOUNDPROOF)
+                     && GetBattlerAbility(gBattlerAttacker) != ABILITY_SOUNDPROOF)
                     {
-                        gBattleMons[gBattlerAttacker].status1 &= ~(STATUS1_SLEEP);
-                        gBattleMons[gBattlerAttacker].status2 &= ~(STATUS2_NIGHTMARE);
+                        gBattleMons[gBattlerAttacker].status1 &= ~STATUS1_SLEEP;
+                        gBattleMons[gBattlerAttacker].status2 &= ~STATUS2_NIGHTMARE;
                         gBattleCommunication[MULTISTRING_CHOOSER] = 1;
                         BattleScriptExecute(BattleScript_MonWokeUpInUproar);
                         gActiveBattler = gBattlerAttacker;
                         BtlController_EmitSetMonData(0, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[gActiveBattler].status1);
                         MarkBattlerForControllerExec(gActiveBattler);
                         break;
-                    }
-                    else
-                    {
-                        gBattlerAttacker = gActiveBattler;
-                        gBattleMons[gActiveBattler].status2 -= STATUS2_UPROAR_TURN(1);
-                        if (WasUnableToUseMove(gActiveBattler))
-                        {
-                            CancelMultiTurnMoves(gActiveBattler);
-                            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_UPROAR_ENDS;
-                        }
-                        else if (gBattleMons[gActiveBattler].status2 & STATUS2_UPROAR)
-                        {
-                            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_UPROAR_CONTINUES;
-                            gBattleMons[gActiveBattler].status2 |= STATUS2_MULTIPLETURNS;
-                        }
-                        else
-                        {
-                            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_UPROAR_ENDS;
-                            CancelMultiTurnMoves(gActiveBattler);
-                        }
-                        BattleScriptExecute(BattleScript_PrintUproarOverTurns);
-                        effect = 1;
                     }
                 }
                 if (gBattlerAttacker != gBattlersCount)
@@ -2509,16 +2487,16 @@ u8 DoBattlerEndTurnEffects(void)
                     if (WasUnableToUseMove(gActiveBattler))
                     {
                         CancelMultiTurnMoves(gActiveBattler);
-                        gBattleCommunication[MULTISTRING_CHOOSER] = 1;
+                        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_UPROAR_ENDS;
                     }
                     else if (gBattleMons[gActiveBattler].status2 & STATUS2_UPROAR)
                     {
-                        gBattleCommunication[MULTISTRING_CHOOSER] = 0;
+                        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_UPROAR_CONTINUES;
                         gBattleMons[gActiveBattler].status2 |= STATUS2_MULTIPLETURNS;
                     }
                     else
                     {
-                        gBattleCommunication[MULTISTRING_CHOOSER] = 1;
+                        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_UPROAR_ENDS;
                         CancelMultiTurnMoves(gActiveBattler);
                     }
                     BattleScriptExecute(BattleScript_PrintUproarOverTurns);
