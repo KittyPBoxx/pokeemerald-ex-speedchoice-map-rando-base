@@ -1714,39 +1714,40 @@ static void FollowerSetGraphics(struct ObjectEvent *objEvent, u16 species, u8 fo
 }
 
 void UpdateFollowingPokemon(void) { // Update following pokemon if any
-  struct ObjectEvent *objEvent = GetFollowerObject();
-  struct Pokemon *mon = GetFirstLiveMon();
-  struct Sprite *sprite;
-  u16 species;
-  bool8 shiny;
-  // Avoid spawning large (64x64) follower pokemon inside buildings
-  if (mon && !(gMapHeader.mapType == MAP_TYPE_INDOOR && SpeciesToGraphicsInfo(GetMonData(mon, MON_DATA_SPECIES), 0)->width == 64)) {
-    if (objEvent == NULL) { // Spawn follower
-      struct ObjectEventTemplate template = {
-        .localId = OBJ_EVENT_ID_FOLLOWER,
-        .graphicsId = OBJ_EVENT_GFX_OW_MON,
-        .x = gSaveBlock1Ptr->pos.x,
-        .y = gSaveBlock1Ptr->pos.y,
-        .elevation = 3,
-        .movementType = MOVEMENT_TYPE_FOLLOW_PLAYER,
-      };
-      objEvent = &gObjectEvents[SpawnSpecialObjectEvent(&template)];
-      objEvent->invisible = TRUE;
-    }
-    sprite = &gSprites[objEvent->spriteId];
-    species = GetMonData(mon, MON_DATA_SPECIES);
-    shiny = IsMonShiny(mon);
-    if (species != objEvent->extra.mon.species || shiny != objEvent->extra.mon.shiny) { // Move to player and set invisible
-      MoveObjectEventToMapCoords(objEvent, gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.x, gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.y);
-      objEvent->invisible = TRUE;
-    }
-    FollowerSetGraphics(objEvent, species, 0, shiny, TRUE);
-    sprite->data[6] = 0; // set animation data
-    objEvent->extra.mon.species = species;
-    objEvent->extra.mon.shiny = shiny;
-  } else {
+//   struct ObjectEvent *objEvent = GetFollowerObject();
+//   struct Pokemon *mon = GetFirstLiveMon();
+//   struct Sprite *sprite;
+//   u16 species;
+//   bool8 shiny;
+//   // Avoid spawning large (64x64) follower pokemon inside buildings
+//   if (mon && !(gMapHeader.mapType == MAP_TYPE_INDOOR && SpeciesToGraphicsInfo(GetMonData(mon, MON_DATA_SPECIES), 0)->width == 64)) {
+//     if (objEvent == NULL) { // Spawn follower
+//       struct ObjectEventTemplate template = {
+//         .localId = OBJ_EVENT_ID_FOLLOWER,
+//         .graphicsId = OBJ_EVENT_GFX_OW_MON,
+//         .x = gSaveBlock1Ptr->pos.x,
+//         .y = gSaveBlock1Ptr->pos.y,
+//         .elevation = 3,
+//         .movementType = MOVEMENT_TYPE_FOLLOW_PLAYER,
+//       };
+//       objEvent = &gObjectEvents[SpawnSpecialObjectEvent(&template)];
+//       objEvent->invisible = TRUE;
+//     }
+//     sprite = &gSprites[objEvent->spriteId];
+//     species = GetMonData(mon, MON_DATA_SPECIES);
+//     shiny = IsMonShiny(mon);
+//     if (species != objEvent->extra.mon.species || shiny != objEvent->extra.mon.shiny) { // Move to player and set invisible
+//       MoveObjectEventToMapCoords(objEvent, gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.x, gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.y);
+//       objEvent->invisible = TRUE;
+//     }
+//     FollowerSetGraphics(objEvent, species, 0, shiny, TRUE);
+//     sprite->data[6] = 0; // set animation data
+//     objEvent->extra.mon.species = species;
+//     objEvent->extra.mon.shiny = shiny;
+//   } else {
+//     RemoveFollowingPokemon();
+//   }
     RemoveFollowingPokemon();
-  }
 }
 
 void RemoveFollowingPokemon(void) { // Remove follower object. Idempotent.
