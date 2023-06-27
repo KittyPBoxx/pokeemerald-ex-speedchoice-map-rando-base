@@ -346,6 +346,7 @@ static const u16 sBadgeFlags[NUM_BADGES] =
 static void Task_BattleStart(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
+    gBulletTime = FALSE;
 
     switch (tState)
     {
@@ -372,7 +373,11 @@ static void Task_BattleStart(u8 taskId)
 
 static void CreateBattleStartTask(u8 transition, u16 song)
 {
-    u8 taskId = CreateTask(Task_BattleStart, 1);
+    u8 taskId;
+    gBulletTime = FALSE;
+    
+    taskId = CreateTask(Task_BattleStart, 1);
+
 
     gTasks[taskId].tTransition = transition;
     PlayMapChosenOrBattleBGM(song);
@@ -383,6 +388,8 @@ static void CreateBattleStartTask(u8 transition, u16 song)
 
 void BattleSetup_StartWildBattle(void)
 {
+    gBulletTime = FALSE;
+
     if (GetSafariZoneFlag())
         DoSafariBattle();
     else

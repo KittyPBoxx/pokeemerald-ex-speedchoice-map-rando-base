@@ -68,6 +68,8 @@ extern u8 gFieldLinkPlayerCount;
 extern u8 gTimeOfDay;
 extern struct TimeBlendSettings currentTimeBlend;
 
+extern bool8 gBulletTime;
+
 // Exported ROM declarations
 extern const struct UCoords32 gDirectionToVectors[];
 

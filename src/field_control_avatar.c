@@ -39,6 +39,13 @@
 #include "debug.h"
 #include "speedchoice.h"
 #include "done_button.h"
+#include "palette.h"
+#include "field_camera.h"
+#include "day_night.h"
+#include "overworld.h"
+#include "constants/rgb.h"
+#include "trainer_pokemon_sprites.h"
+#include "field_weather.h"
 
 static EWRAM_DATA u8 sWildEncounterImmunitySteps = 0;
 static EWRAM_DATA u16 sPreviousPlayerMetatileBehavior = 0;
@@ -89,6 +96,48 @@ void FieldClearPlayerInput(struct FieldInput *input)
     input->input_field_1_2 = FALSE;
     input->input_field_1_3 = FALSE;
     input->dpadDirection = 0;
+}
+
+static void EnterBulletTime(void) 
+{
+    
+    PlaySE(9);
+    FadeOutAndFadeInNewMapMusic(694, 5, 2);
+    TintPalette_GrayScale2(gPlttBufferUnfaded + 0, 6 * 16 * 2);
+
+    if (!gPaletteFade.active) 
+    {
+        BeginFastPaletteFade(1);
+        BeginFastPaletteFade(0);
+    }
+}
+
+static void ExitBulletTime(void) 
+{
+    PlaySE(37);
+    Overworld_PlaySpecialMapMusic();
+
+    if (!gPaletteFade.active) 
+    {
+        BeginFastPaletteFade(1);
+        if (MapHasNaturalLight(gMapHeader.mapType) && !(GetCurrentTimeOfDay() == TIME_DAY) && !gPlayerAvatar.preventStep) 
+        {
+            /* This was a hack around day palettes but it breaks too much */
+            // CB2_ReturnToField();
+
+            LoadMapTilesetPalettes(gMapHeader.mapLayout);
+            LoadPaletteDayNight(gPlttBufferUnfaded + 0, 0, 6 * 16 * 2);
+        }
+        else
+        {
+            LoadMapTilesetPalettes(gMapHeader.mapLayout);
+        }
+        BeginFastPaletteFade(0);
+    }
+    else 
+    {
+        LoadMapTilesetPalettes(gMapHeader.mapLayout);
+    }
 }
 
 void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
@@ -161,6 +210,24 @@ void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
         }
     }
     //
+
+    if (gMain.heldKeysRaw & R_BUTTON && gMain.heldKeysRaw & L_BUTTON) 
+    {
+        if (!gBulletTime)
+        {
+            EnterBulletTime();
+        }
+        gBulletTime = TRUE;
+    } 
+    else if (!gPaletteFade.active)
+    {
+        if (gBulletTime)
+        {
+            ExitBulletTime();
+        }
+        gBulletTime = FALSE;
+    } 
+
 }
 
 // The player is in a moving state. Assume a step was taken: figure out what it was.
@@ -816,6 +883,7 @@ static bool8 TryStartWarpEventScript(struct MapPosition *position, u16 metatileB
             DoMossdeepGymWarp();
             return TRUE;
         }
+        gBulletTime = FALSE;
         DoWarp();
         return TRUE;
     }
@@ -895,7 +963,6 @@ static void SetupWarp(struct MapHeader *unused, s8 warpEventId, struct MapPositi
     else
     {
         const struct MapHeader *mapHeader;
-
         SetWarpDestinationToMapWarp(warpEvent->mapGroup, warpEvent->mapNum, warpEvent->warpId);
         UpdateEscapeWarp(position->x, position->y);
         mapHeader = Overworld_GetMapHeaderByGroupAndId(warpEvent->mapGroup, warpEvent->mapNum);

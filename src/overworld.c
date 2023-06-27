@@ -205,6 +205,8 @@ u8 gFieldLinkPlayerCount;
 u8 gTimeOfDay;
 struct TimeBlendSettings currentTimeBlend;
 
+bool8 gBulletTime;
+
 // EWRAM vars
 EWRAM_DATA static u8 sObjectEventLoadFlag = 0;
 EWRAM_DATA struct WarpData gLastUsedWarp = {0};

@@ -407,7 +407,7 @@ static u8 TextSpeed_ProcessInput(u8 selection)
 {
     if (JOY_NEW(DPAD_RIGHT))
     {
-        if (selection <= 2)
+        if (selection <= 3)
             selection++;
         else
             selection = 0;
@@ -419,7 +419,7 @@ static u8 TextSpeed_ProcessInput(u8 selection)
         if (selection != 0)
             selection--;
         else
-            selection = 3;
+            selection = 4;
 
         sArrowPressed = TRUE;
     }
@@ -427,6 +427,7 @@ static u8 TextSpeed_ProcessInput(u8 selection)
 }
 
 extern u8 gText_TextSpeedInst[];
+extern u8 gText_TextSpeedUltr[];
 
 // -------------------------------
 // SPEEDCHOICE CHANGE
@@ -434,26 +435,29 @@ extern u8 gText_TextSpeedInst[];
 // Change: Instant Text is handled in options menu instead.
 static void TextSpeed_DrawChoices(u8 selection)
 {
-    u8 styles[4];
-    s32 widthSlow, widthMid, widthFast, widthInst, xMid;
+    u8 styles[5];
+    s32 widthSlow, widthMid, widthFast, widthInst, xMid, widthUltr;
 
     styles[0] = 0;
     styles[1] = 0;
     styles[2] = 0;
     styles[3] = 0;
+    styles[4] = 0;
     styles[selection] = 1;
 
-    DrawOptionMenuChoice(gText_TextSpeedSlow, 92, YPOS_TEXTSPEED, styles[0]);
+    DrawOptionMenuChoice(gText_TextSpeedSlow, 63, YPOS_TEXTSPEED, styles[0]);
 
     widthSlow = GetStringWidth(1, gText_TextSpeedSlow, 0);
     widthMid = GetStringWidth(1, gText_TextSpeedMid, 0);
     widthFast = GetStringWidth(1, gText_TextSpeedFast, 0);
     widthInst = GetStringWidth(1, gText_TextSpeedInst, 0);
+    widthUltr = GetStringWidth(1, gText_TextSpeedUltr, 0);
 
-    DrawOptionMenuChoice(gText_TextSpeedMid, 123, YPOS_TEXTSPEED, styles[1]);
-    DrawOptionMenuChoice(gText_TextSpeedFast, 147, YPOS_TEXTSPEED, styles[2]);
+    DrawOptionMenuChoice(gText_TextSpeedMid, 94, YPOS_TEXTSPEED, styles[1]);
+    DrawOptionMenuChoice(gText_TextSpeedFast, 118, YPOS_TEXTSPEED, styles[2]);
 
-    DrawOptionMenuChoice(gText_TextSpeedInst, GetStringRightAlignXOffset(1, gText_TextSpeedFast, 200), YPOS_TEXTSPEED, styles[3]);
+    DrawOptionMenuChoice(gText_TextSpeedInst, GetStringRightAlignXOffset(1, gText_TextSpeedFast, 171), YPOS_TEXTSPEED, styles[3]);
+    DrawOptionMenuChoice(gText_TextSpeedUltr, GetStringRightAlignXOffset(1, gText_TextSpeedInst, 200), YPOS_TEXTSPEED, styles[4]);
 }
 
 static u8 BattleScene_ProcessInput(u8 selection)

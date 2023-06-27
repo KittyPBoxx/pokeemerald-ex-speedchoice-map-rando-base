@@ -28,6 +28,8 @@
 #include "done_button.h"
 #include "boot_error_screen.h"
 #include "AgbAccuracy.h"
+#include "palette.h"
+#include "region_map.h"
 
 static void VBlankIntr(void);
 static void HBlankIntr(void);
@@ -441,13 +443,36 @@ static void IntrDummy(void)
 
 static void WaitForVBlank(void)
 {
+    s32 i; 
     gMain.intrCheck &= ~INTR_FLAG_VBLANK;
 
 /*
     while (!(gMain.intrCheck & INTR_FLAG_VBLANK))
         ;
 */
-    VBlankIntrWait(); // battery fix. Game Freak pls.
+
+    if (gBulletTime) 
+    {
+        TintPalette_GrayScale2(gPlttBufferUnfaded + 0, 6 * 16 * 2);
+        // for (i = 0; i < 40000; i++)
+        // {
+        //     ;
+        // }
+        VBlankIntrWait();
+        VBlankIntrWait();
+        VBlankIntrWait();
+        VBlankIntrWait();
+        VBlankIntrWait();
+    }
+    else if (gPaletteFade.active || gMain.heldKeysRaw & R_BUTTON) 
+    {
+        VBlankIntrWait(); // battery fix. Game Freak pls.
+    }
+    else if (gSaveBlock2Ptr->optionsTextSpeed != OPTIONS_TEXT_SPEED_ULTR && gSaveBlock2Ptr->optionsTextSpeed != 0)
+    {
+        VBlankIntrWait();
+    }
+    
 }
 
 void SetTrainerHillVBlankCounter(u32 *counter)
