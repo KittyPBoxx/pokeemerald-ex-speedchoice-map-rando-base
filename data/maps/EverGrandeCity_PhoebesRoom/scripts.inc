@@ -5,7 +5,7 @@ EverGrandeCity_PhoebesRoom_MapScripts:: @ 8228174
 	.byte 0
 
 EverGrandeCity_PhoebesRoom_OnWarp: @ 8228184
-	map_script_2 VAR_TEMP_1, 0, EverGrandeCity_PhoebesRoom_EventScript_PlayerTurnNorth
+	map_script_2 VAR_ELITE_4_STATE, 1, EverGrandeCity_PhoebesRoom_EventScript_PlayerTurnNorth
 	.2byte 0
 
 EverGrandeCity_PhoebesRoom_EventScript_PlayerTurnNorth:: @ 822818E
@@ -25,8 +25,7 @@ EverGrandeCity_PhoebesRoom_EventScript_WalkInCloseDoor:: @ 822819D
 
 EverGrandeCity_PhoebesRoom_OnLoad: @ 82281AA
 	call_if_set FLAG_DEFEATED_ELITE_4_PHOEBE, EverGrandeCity_PhoebesRoom_EventScript_ResetAdvanceToNextRoom
-	compare VAR_ELITE_4_STATE, 2
-	call_if_eq EverGrandeCity_PhoebesRoom_EventScript_CloseDoor
+	call EverGrandeCity_PhoebesRoom_EventScript_CloseDoor
 	end
 
 EverGrandeCity_PhoebesRoom_EventScript_ResetAdvanceToNextRoom:: @ 82281BF

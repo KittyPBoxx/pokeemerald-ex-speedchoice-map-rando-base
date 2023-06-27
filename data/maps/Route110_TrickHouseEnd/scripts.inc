@@ -34,7 +34,6 @@ Route110_TrickHouseEnd_OnFrame: @ 826ACF5
 
 Route110_TrickHouseEnd_EventScript_CloseDoor:: @ 826ACFF
 	setvar VAR_TEMP_1, 1
-	call Route110_TrickHouseEnd_EventScript_SetDoorClosedMetatile
 	special DrawWholeMapView
 	end
 

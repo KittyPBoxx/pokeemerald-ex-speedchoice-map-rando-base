@@ -363,7 +363,7 @@
     },
     {
       "type": "trigger",
-      "x": 42,
+      "x": 40,
       "y": 21,
       "elevation": 5,
       "var": "VAR_MOSSDEEP_CITY_STATE",
@@ -381,8 +381,8 @@
     },
     {
       "type": "trigger",
-      "x": 41,
-      "y": 23,
+      "x": 57,
+      "y": 29,
       "elevation": 5,
       "var": "VAR_MOSSDEEP_CITY_STATE",
       "var_value": "1",
@@ -390,8 +390,8 @@
     },
     {
       "type": "trigger",
-      "x": 41,
-      "y": 24,
+      "x": 58,
+      "y": 29,
       "elevation": 5,
       "var": "VAR_MOSSDEEP_CITY_STATE",
       "var_value": "1",

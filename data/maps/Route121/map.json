@@ -453,6 +453,24 @@
       "var": "VAR_ROUTE121_STATE",
       "var_value": "0",
       "script": "Route121_EventScript_AquaGruntsMoveOut"
+    },
+    {
+      "type": "trigger",
+      "x": 30,
+      "y": 12,
+      "elevation": 3,
+      "var": "VAR_ROUTE121_STATE",
+      "var_value": "0",
+      "script": "Route121_EventScript_AquaGruntsMoveOut"
+    },
+    {
+      "type": "trigger",
+      "x": 31,
+      "y": 12,
+      "elevation": 3,
+      "var": "VAR_ROUTE121_STATE",
+      "var_value": "0",
+      "script": "Route121_EventScript_AquaGruntsMoveOut"
     }
   ],
   "bg_events": [

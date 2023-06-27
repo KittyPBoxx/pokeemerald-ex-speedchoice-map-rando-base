@@ -228,7 +228,8 @@ const u8 gSpeedchoiceEscapeText[] = _("ESCAPE");
 /* ----------------- */
 const u8 gPresetNames[][20] = {
     _("{COLOR GREEN}{SHADOW LIGHT_GREEN}VANILLA"),
-    _("{COLOR GREEN}{SHADOW LIGHT_GREEN}BINGO"),
+    _("{COLOR GREEN}{SHADOW LIGHT_GREEN}MAPRANDO"),
+    // _("{COLOR GREEN}{SHADOW LIGHT_GREEN}BINGO"),
     _("{COLOR GREEN}{SHADOW LIGHT_GREEN}CEA"),
     _("{COLOR GREEN}{SHADOW LIGHT_GREEN}RACE"),
     _("{COLOR GREEN}{SHADOW LIGHT_GREEN}MEME"),
@@ -241,7 +242,8 @@ const u8 gPresetNames[][20] = {
 // -------------------------
 enum {
     PRESET_VANILLA,
-    PRESET_BINGO,
+    PRESET_MAPRANDO,
+    // PRESET_BINGO,
     PRESET_CEA,
     PRESET_RACE,
     PRESET_MEME
@@ -274,25 +276,45 @@ static const u8 gPresetVanilla[CURRENT_OPTIONS_NUM] = {
     DEBUG_MENUS_OFF         // DEBUG_MENUS
 };
 
-static const u8 gPresetBingo[CURRENT_OPTIONS_NUM] = {
-    PRESET_BINGO,           // PRESET
+static const u8 gPresetMapRando[CURRENT_OPTIONS_NUM] = {
+    PRESET_VANILLA,         // PRESET
     0xFF,                   // (Reserved for trainer name)
-    EXP_BW,                 // EXP
+    EXP_KEEP,               // EXP
     PLOT_FULL,              // PLOTLESS
     SPIN_KEEP,              // SPINNERS
     MAX_OFF,                // MAXVISION
-    FLY_YES,                // EARLYFLY
+    FLY_NO,                 // EARLYFLY
     GOOD_OFF,               // GOOD_EARLY_WILDS
-    SURF_ON,                // EARLYSURF
-    NICE_MENU_ORDER_ON,     // NICE_MENU_ORDER
-    EASY_FALSE_SWIPE_TUTOR, // EASY_FALSE_SWIPE
-    FAST_CATCH_OFF,         // FAST_CATCH
-    GEN_7_X_ITEMS_ON,       // GEN_7_X_ITEMS
+    SURF_OFF,               // EARLYSURF
+    NICE_MENU_ORDER_OFF,    // NICE_MENU_ORDER
+    EASY_FALSE_SWIPE_OFF,   // EASY_FALSE_SWIPE
+    FAST_CATCH_ON,          // FAST_CATCH
+    EARLY_BIKE_NO,          // EARLY_BIKE
     EVO_EV_OFF,             // EVO_EVERY_LEVEL
     INV_BATTLES_OFF,        // INVERSE_BATTLES
     SHUFFLE_MUSIC_OFF,      // SHUFFLE_MUSIC
     DEBUG_MENUS_OFF         // DEBUG_MENUS
 };
+
+// static const u8 gPresetBingo[CURRENT_OPTIONS_NUM] = {
+//     PRESET_BINGO,           // PRESET
+//     0xFF,                   // (Reserved for trainer name)
+//     EXP_BW,                 // EXP
+//     PLOT_FULL,              // PLOTLESS
+//     SPIN_KEEP,              // SPINNERS
+//     MAX_OFF,                // MAXVISION
+//     FLY_YES,                // EARLYFLY
+//     GOOD_OFF,               // GOOD_EARLY_WILDS
+//     SURF_ON,                // EARLYSURF
+//     NICE_MENU_ORDER_ON,     // NICE_MENU_ORDER
+//     EASY_FALSE_SWIPE_TUTOR, // EASY_FALSE_SWIPE
+//     FAST_CATCH_OFF,         // FAST_CATCH
+//     GEN_7_X_ITEMS_ON,       // GEN_7_X_ITEMS
+//     EVO_EV_OFF,             // EVO_EVERY_LEVEL
+//     INV_BATTLES_OFF,        // INVERSE_BATTLES
+//     SHUFFLE_MUSIC_OFF,      // SHUFFLE_MUSIC
+//     DEBUG_MENUS_OFF         // DEBUG_MENUS
+// };
 
 static const u8 gPresetCEA[CURRENT_OPTIONS_NUM] = {
     PRESET_CEA,             // PRESET
@@ -362,8 +384,10 @@ const u8 *GetPresetPtr(int presetID) {
         case PRESET_VANILLA:
         default:
             return gPresetVanilla;
-        case PRESET_BINGO:
-            return gPresetBingo;
+        case PRESET_MAPRANDO:
+            return gPresetMapRando;
+        // case PRESET_BINGO:
+        //     return gPresetBingo;
         case PRESET_CEA:
             return gPresetCEA;
         case PRESET_RACE:

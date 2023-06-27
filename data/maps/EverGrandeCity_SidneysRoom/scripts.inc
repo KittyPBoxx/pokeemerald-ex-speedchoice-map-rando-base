@@ -12,8 +12,7 @@ EverGrandeCity_SidneysRoom_OnTransition: @ 8227F16
 
 EverGrandeCity_SidneysRoom_OnLoad: @ 8227F1D
 	call_if_set FLAG_DEFEATED_ELITE_4_SIDNEY, EverGrandeCity_SidneysRoom_EventScript_ResetAdvanceToNextRoom
-	compare VAR_ELITE_4_STATE, 1
-	call_if_eq EverGrandeCity_SidneysRoom_EventScript_CloseDoor
+	call EverGrandeCity_SidneysRoom_EventScript_CloseDoor
 	end
 
 EverGrandeCity_SidneysRoom_EventScript_ResetAdvanceToNextRoom:: @ 8227F32
@@ -25,7 +24,7 @@ EverGrandeCity_SidneysRoom_EventScript_CloseDoor:: @ 8227F38
 	return
 
 EverGrandeCity_SidneysRoom_OnWarp: @ 8227F3E
-	map_script_2 VAR_TEMP_1, 0, EverGrandeCity_SidneysRoom_EventScript_PlayerTurnNorth
+	map_script_2 VAR_ELITE_4_STATE, 0, EverGrandeCity_SidneysRoom_EventScript_PlayerTurnNorth
 	.2byte 0
 
 EverGrandeCity_SidneysRoom_EventScript_PlayerTurnNorth:: @ 8227F48

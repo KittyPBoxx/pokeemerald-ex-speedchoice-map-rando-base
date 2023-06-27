@@ -295,7 +295,17 @@ static void ItemUseInEscape_EscapeRope(u8 taskId)
 bool8 StartMenu_EscapeCallback(void)
 {
 	CloseMenuWithoutScriptContext();
-    CreateTask(ItemUseInEscape_EscapeRope, 0xFF);
+
+    if (IsMapTypeOutdoors(GetCurrentMapType())) 
+    {
+        SetWarpDestination(0,10,10,10,9);
+        DoTeleportTileWarp();
+    }
+    else
+    {
+        CreateTask(ItemUseInEscape_EscapeRope, 0xFF);
+    }
+    
     return TRUE;
 }
 
@@ -377,10 +387,10 @@ static void BuildNormalStartMenu(void)
     AddStartMenuAction(MENU_ACTION_PLAYER);
     AddStartMenuAction(MENU_ACTION_SAVE);
     AddStartMenuAction(MENU_ACTION_OPTION);
-    if(IsMapEscapeOption() == TRUE)
+    // if(IsMapEscapeOption() == TRUE)
         AddStartMenuAction(MENU_ACTION_ESCAPE);
-    else
-        AddStartMenuAction(MENU_ACTION_EXIT);
+    // else
+    //     AddStartMenuAction(MENU_ACTION_EXIT);
 }
 
 static void BuildSafariZoneStartMenu(void)

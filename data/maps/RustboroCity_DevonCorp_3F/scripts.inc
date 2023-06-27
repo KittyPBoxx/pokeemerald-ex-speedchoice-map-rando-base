@@ -21,7 +21,7 @@ RustboroCity_DevonCorp_3F_OnWarp: @ 8212455
 	.2byte 0
 
 RustboroCity_DevonCorp_3F_EventScript_PlayerFaceEast:: @ 821245F
-	turnobject OBJ_EVENT_ID_PLAYER, DIR_EAST
+	turnobject LOCALID_DEVON_EMPLOYEE, DIR_WEST
 	end
 
 RustboroCity_DevonCorp_3F_OnFrame: @ 8212464

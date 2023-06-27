@@ -341,6 +341,10 @@
 #define METATILE_EliteFour_RightSpotlightOff        0x2DE
 #define METATILE_EliteFour_EntryDoor_ClosedTop      0x206
 #define METATILE_EliteFour_EntryDoor_ClosedBottom   0x20E
+#define METATILE_EliteFour_EntryDoor_OpenLeft       0x209
+#define METATILE_EliteFour_EntryDoor_OpenTopLeft    0x201
+#define METATILE_EliteFour_EntryDoor_OpenRight      0x20B
+#define METATILE_EliteFour_EntryDoor_OpenTopRight   0x203
 
 // gTileset_InsideShip
 #define METATILE_InsideShip_IntactDoor_Bottom_Unlocked 0x22B

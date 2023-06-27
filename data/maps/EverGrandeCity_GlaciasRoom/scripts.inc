@@ -5,7 +5,7 @@ EverGrandeCity_GlaciasRoom_MapScripts:: @ 8228412
 	.byte 0
 
 EverGrandeCity_GlaciasRoom_OnWarp: @ 8228422
-	map_script_2 VAR_TEMP_1, 0, EverGrandeCity_GlaciasRoom_EventScript_PlayerTurnNorth
+	map_script_2 VAR_ELITE_4_STATE, 2, EverGrandeCity_GlaciasRoom_EventScript_PlayerTurnNorth
 	.2byte 0
 
 EverGrandeCity_GlaciasRoom_EventScript_PlayerTurnNorth:: @ 822842C
@@ -25,8 +25,7 @@ EverGrandeCity_GlaciasRoom_EventScript_WalkInCloseDoor:: @ 822843B
 
 EverGrandeCity_GlaciasRoom_OnLoad: @ 8228448
 	call_if_set FLAG_DEFEATED_ELITE_4_GLACIA, EverGrandeCity_GlaciasRoom_EventScript_ResetAdvanceToNextRoom
-	compare VAR_ELITE_4_STATE, 3
-	call_if_eq EverGrandeCity_GlaciasRoom_EventScript_CloseDoor
+	call EverGrandeCity_GlaciasRoom_EventScript_CloseDoor
 	end
 
 EverGrandeCity_GlaciasRoom_EventScript_ResetAdvanceToNextRoom:: @ 822845D
