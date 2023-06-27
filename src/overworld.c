@@ -71,6 +71,7 @@
 #include "constants/weather.h"
 #include "done_button.h"
 #include "speedchoice.h"
+#include "random_warps.h"
 
 struct CableClubPlayer
 {
@@ -656,6 +657,7 @@ void WarpIntoMap(void)
 
 void SetWarpDestination(s8 mapGroup, s8 mapNum, s8 warpId, s8 x, s8 y)
 {
+    InterceptWarp(&mapGroup, &mapNum, &warpId, &x, &y);
     SetWarpData(&sWarpDestination, mapGroup, mapNum, warpId, x, y);
 }
 
@@ -854,6 +856,8 @@ static void LoadMapFromWarp(bool32 a1)
     bool8 isIndoors;
 
     LoadCurrentMapData();
+    CorrectPositionAfterIntercept();
+
     if (!(sObjectEventLoadFlag & SKIP_OBJECT_EVENT_LOAD))
     {
         if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
@@ -994,12 +998,13 @@ bool32 Overworld_IsBikingAllowed(void)
 
 void SetDefaultFlashLevel(void)
 {
-    if (!gMapHeader.cave)
-        gSaveBlock1Ptr->flashLevel = 0;
-    else if (FlagGet(FLAG_SYS_USE_FLASH))
-        gSaveBlock1Ptr->flashLevel = 1;
-    else
-        gSaveBlock1Ptr->flashLevel = gMaxFlashLevel - 1;
+    gSaveBlock1Ptr->flashLevel = 0;
+    // if (!gMapHeader.cave)
+    //     gSaveBlock1Ptr->flashLevel = 0;
+    // else if (FlagGet(FLAG_SYS_USE_FLASH))
+    //     gSaveBlock1Ptr->flashLevel = 1;
+    // else
+    //     gSaveBlock1Ptr->flashLevel = gMaxFlashLevel - 1;
 }
 
 void Overworld_SetFlashLevel(s32 flashLevel)
@@ -1653,6 +1658,7 @@ void CB2_NewGame(void)
     StopMapMusic();
     ResetSafariZoneFlag_();
     NewGameInitData();
+    NewGameRandomWarpsInit();
     ResetInitialPlayerAvatarState();
     PlayTimeCounter_Start();
     ScriptContext1_Init();
@@ -1826,7 +1832,8 @@ static void FieldCB_FadeTryShowMapPopup(void)
 void CB2_ContinueSavedGame(void)
 {
     u8 trainerHillMapId;
-
+    
+    resetPositionCorrection();
     FieldClearVBlankHBlankCallbacks();
     StopMapMusic();
     ResetSafariZoneFlag_();

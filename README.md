@@ -2,6 +2,8 @@
 
 To set up the repository, see [INSTALL.md](INSTALL.md).
 
+For the tool to actually randomize the warps go here https://kittypboxx.github.io/Emerald-Ex-Map-Rando/dist/RomMaker
+
 ## See also
 
 Other disassembly and/or decompilation projects:
