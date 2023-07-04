@@ -277,23 +277,23 @@ static const u8 gPresetVanilla[CURRENT_OPTIONS_NUM] = {
 };
 
 static const u8 gPresetMapRando[CURRENT_OPTIONS_NUM] = {
-    PRESET_VANILLA,         // PRESET
+    PRESET_MAPRANDO,        // PRESET
     0xFF,                   // (Reserved for trainer name)
     EXP_KEEP,               // EXP
     PLOT_FULL,              // PLOTLESS
-    SPIN_KEEP,              // SPINNERS
+    SPIN_NERF,              // SPINNERS
     MAX_OFF,                // MAXVISION
     FLY_NO,                 // EARLYFLY
     GOOD_OFF,               // GOOD_EARLY_WILDS
     SURF_OFF,               // EARLYSURF
-    NICE_MENU_ORDER_OFF,    // NICE_MENU_ORDER
+    NICE_MENU_ORDER_ON,     // NICE_MENU_ORDER
     EASY_FALSE_SWIPE_OFF,   // EASY_FALSE_SWIPE
     FAST_CATCH_ON,          // FAST_CATCH
-    EARLY_BIKE_NO,          // EARLY_BIKE
+    GEN_7_X_ITEMS_ON,       // GEN_7_X_ITEMS
     EVO_EV_OFF,             // EVO_EVERY_LEVEL
     INV_BATTLES_OFF,        // INVERSE_BATTLES
     SHUFFLE_MUSIC_OFF,      // SHUFFLE_MUSIC
-    DEBUG_MENUS_OFF         // DEBUG_MENUS
+    DEBUG_MENUS_ON          // DEBUG_MENUS
 };
 
 // static const u8 gPresetBingo[CURRENT_OPTIONS_NUM] = {
