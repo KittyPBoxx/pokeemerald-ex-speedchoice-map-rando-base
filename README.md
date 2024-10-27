@@ -1,3 +1,11 @@
+> [!WARNING]
+> This repo is now out of date, it has been replaced by the following:
+>
+> BASE ROM: https://github.com/KittyPBoxx/pokeemerald-ex-speedchoice-maprando-gen9/tree/speedchoice-maprando
+>
+> UPR + MAP RANDO: https://github.com/KittyPBoxx/upr-speedchoice-ex-gen9 
+>
+
 # Pokémon Emerald EX Speedchoice
 
 To set up the repository, see [INSTALL.md](INSTALL.md).
